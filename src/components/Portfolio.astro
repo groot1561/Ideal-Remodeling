@@ -1,0 +1,102 @@
+---
+import { portfolioData } from '../data/portfolio';
+import PortfolioProject from './PortfolioProject.astro';
+---
+
+<section id="work" class="relative bg-warm-50 py-20 lg:py-0 overflow-hidden" aria-label="Selected Portfolio Work">
+  
+  <!-- DESKTOP PINNED VERTICAL EDITORIAL REVEAL CONTAINER -->
+  <div id="portfolio-pin-container" class="hidden lg:block relative w-full h-screen overflow-hidden">
+    
+    <!-- Locked Top Section Header -->
+    <div class="absolute top-20 md:top-24 left-6 md:left-12 right-6 md:right-12 z-30 flex items-end justify-between border-b border-warm-300/60 pb-4 bg-warm-50/95 backdrop-blur-md pt-2">
+      <div>
+        <span class="font-sans text-xs uppercase tracking-widest text-bronze block font-medium">
+          03 — SELECTED WORK
+        </span>
+        <h2 class="font-serif text-3xl md:text-4xl text-warm-900 mt-1">
+          Spaces With A Sense Of Place.
+        </h2>
+      </div>
+
+      <span class="font-sans text-xs uppercase tracking-editorial text-warm-600 hidden sm:block">
+        MAGAZINE VIEW — SCROLL TO TURN
+      </span>
+    </div>
+
+    <!-- Stacked Project Layers -->
+    <div class="relative w-full h-full">
+      {
+        portfolioData.map((project, index) => (
+          <PortfolioProject
+            project={project}
+            index={index}
+            total={portfolioData.length}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- MOBILE REACTION & RESPONSIVE LAYOUT -->
+  <div class="lg:hidden max-w-7xl mx-auto px-6 space-y-16">
+    <!-- Mobile Title -->
+    <div class="space-y-3 border-b border-warm-300/60 pb-6 pt-8">
+      <span class="font-sans text-xs uppercase tracking-widest text-bronze block font-medium">
+        03 — SELECTED WORK
+      </span>
+      <h2 class="font-serif text-4xl text-warm-900 leading-tight">
+        Spaces With A Sense Of Place.
+      </h2>
+      <p class="font-sans text-sm text-warm-700 font-light leading-relaxed">
+        A collection of residential interiors transformed through thoughtful design and considered craftsmanship.
+      </p>
+    </div>
+
+    <!-- Mobile Vertical Cards -->
+    <div class="space-y-16">
+      {
+        portfolioData.map((project) => (
+          <article class="portfolio-card-mobile space-y-6">
+            <div class="relative aspect-4/3 w-full overflow-hidden rounded-sm bg-warm-200 shadow-sm">
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                class="w-full h-full object-cover object-center filter brightness-[0.97]"
+                loading="lazy"
+              />
+              <span class="absolute top-4 left-4 bg-warm-50/90 backdrop-blur-sm px-3 py-1 font-serif text-sm text-warm-900">
+                {project.number}
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-xs text-warm-600 uppercase tracking-editorial">
+                <span>{project.category}</span>
+                <span>{project.location}</span>
+              </div>
+              <h3 class="font-serif text-3xl text-warm-900">
+                {project.title}
+              </h3>
+              <p class="font-sans text-sm text-warm-700 font-light leading-relaxed">
+                "{project.description}"
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-warm-300/60 grid grid-cols-2 gap-4 text-xs font-sans text-warm-700">
+              <div>
+                <span class="text-warm-500 block uppercase text-[10px]">SCOPE</span>
+                <span>{project.specs.scope}</span>
+              </div>
+              <div>
+                <span class="text-warm-500 block uppercase text-[10px]">MATERIALS</span>
+                <span>{project.specs.keyMaterials}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+</section>

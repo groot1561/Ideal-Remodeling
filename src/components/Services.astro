@@ -1,0 +1,105 @@
+---
+import { servicesData } from '../data/services';
+import ServiceItem from './ServiceItem.astro';
+---
+
+<section id="services" class="relative bg-warm-50 py-20 lg:py-0 overflow-hidden" aria-label="Services">
+  
+  <!-- DESKTOP PINNED LAYERED REVEAL CONTAINER -->
+  <div id="services-pin-container" class="hidden lg:block relative w-full h-screen overflow-hidden">
+    
+    <!-- Locked Section Header (Sticky Top Bar over layers below main site header) -->
+    <div class="absolute top-20 md:top-24 left-6 md:left-12 right-6 md:right-12 z-30 flex items-end justify-between border-b border-warm-300/60 pb-4 bg-warm-50/95 backdrop-blur-md pt-2">
+      <div>
+        <span class="font-sans text-xs uppercase tracking-widest text-bronze block font-medium">
+          02 — WHAT WE DO
+        </span>
+        <h2 class="font-serif text-3xl md:text-4xl text-warm-900 mt-1">
+          Considered Design. Careful Craftsmanship.
+        </h2>
+      </div>
+
+      <!-- Realtime Progress Indicator -->
+      <div class="flex items-center space-x-2 font-sans text-xs tracking-editorial text-warm-700">
+        <span id="service-progress-num" class="font-serif text-2xl text-warm-900 font-normal">01</span>
+        <span class="text-warm-400">/</span>
+        <span class="text-warm-500">0{servicesData.length}</span>
+      </div>
+    </div>
+
+    <!-- Stacked Service Layers -->
+    <div class="relative w-full h-full">
+      {
+        servicesData.map((service, index) => (
+          <ServiceItem
+            service={service}
+            index={index}
+            total={servicesData.length}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+
+  <!-- MOBILE REACTION & ACCESSIBLE FALLBACK LAYOUT -->
+  <div class="lg:hidden max-w-7xl mx-auto px-6 space-y-16">
+    <!-- Mobile Section Title -->
+    <div class="space-y-3 border-b border-warm-300/60 pb-6 pt-8">
+      <span class="font-sans text-xs uppercase tracking-widest text-bronze block font-medium">
+        02 — WHAT WE DO
+      </span>
+      <h2 class="font-serif text-4xl text-warm-900 leading-tight">
+        Considered Design. Careful Craftsmanship.
+      </h2>
+      <p class="font-sans text-sm text-warm-700 font-light leading-relaxed">
+        From individual spaces to complete interiors, we approach every project with attention to proportion, material, function, and detail.
+      </p>
+    </div>
+
+    <!-- Mobile Vertical Cards -->
+    <div class="space-y-16">
+      {
+        servicesData.map((service) => (
+          <article class="service-card-mobile space-y-6">
+            <div class="relative aspect-4/3 w-full overflow-hidden rounded-sm bg-warm-200 shadow-sm">
+              <img
+                src={service.image}
+                alt={service.imageAlt}
+                class="w-full h-full object-cover object-center filter brightness-[0.96]"
+                loading="lazy"
+              />
+              <span class="absolute top-4 left-4 bg-warm-50/90 backdrop-blur-sm px-3 py-1 font-serif text-sm text-warm-900">
+                {service.number}
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <h3 class="font-serif text-3xl text-warm-900">
+                {service.title}
+              </h3>
+              <p class="font-sans text-base text-warm-800 font-medium italic">
+                "{service.shortDesc}"
+              </p>
+              <p class="font-sans text-sm text-warm-600 font-light leading-relaxed">
+                {service.fullDesc}
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-warm-300/60">
+              <ul class="grid grid-cols-2 gap-2 text-xs text-warm-600">
+                {service.details.map((detail) => (
+                  <li class="flex items-center space-x-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-bronze"></span>
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+</section>

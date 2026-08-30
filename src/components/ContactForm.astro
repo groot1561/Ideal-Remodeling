@@ -1,0 +1,305 @@
+---
+import { siteConfig } from '../data/siteConfig';
+
+const projectTypes = [
+  "Kitchen Remodeling",
+  "Bathroom Suite",
+  "Living Spaces",
+  "Whole Home Renovation",
+  "Custom Millwork / Addition"
+];
+
+const budgetRanges = [
+  "$50k – $100k",
+  "$100k – $250k",
+  "$250k – $500k",
+  "$500k+"
+];
+---
+
+<div class="bg-warm-950/80 border border-warm-800/80 p-8 md:p-12 rounded-sm shadow-2xl backdrop-blur-md relative overflow-hidden">
+  <!-- Subtle Decorative Gold/Bronze Top Accent Bar -->
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-bronze-dark via-bronze to-bronze-light"></div>
+
+  <!-- Success Confirmation State (Hidden initially) -->
+  <div id="form-success-card" class="hidden py-12 space-y-6 text-center">
+    <div class="w-16 h-16 bg-bronze/15 text-bronze rounded-full flex items-center justify-center mx-auto border border-bronze/40">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path>
+      </svg>
+    </div>
+    
+    <span class="font-sans text-xs uppercase tracking-widest text-bronze block font-medium">INQUIRY RECEIVED</span>
+    <h3 class="font-serif text-4xl text-warm-50">Thank You For Reaching Out</h3>
+    <p class="font-sans text-sm text-warm-300 max-w-md mx-auto leading-relaxed font-light">
+      Your project details have been assigned to an Ideal Remodeling principal designer. We will review your vision and contact you within 24 business hours.
+    </p>
+
+    <div class="pt-6">
+      <button
+        id="reset-form-btn"
+        type="button"
+        class="inline-block border border-warm-700 text-warm-200 hover:text-warm-50 font-sans text-xs uppercase tracking-editorial px-8 py-3.5 hover:border-bronze transition-colors duration-300"
+      >
+        SUBMIT ANOTHER INQUIRY
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Interactive Form -->
+  <form id="contact-form" class="space-y-8" novalidate>
+    
+    <div class="space-y-2 border-b border-warm-800 pb-4">
+      <h3 class="font-serif text-3xl text-warm-50">Project Inquiry</h3>
+      <p class="font-sans text-xs uppercase tracking-editorial text-warm-400">
+        SELECT YOUR PROJECT REQUIREMENTS BELOW
+      </p>
+    </div>
+
+    <!-- 1. Interactive Project Type Pills -->
+    <div class="space-y-3">
+      <label class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+        1. SELECT PROJECT SCOPE <span class="text-bronze">*</span>
+      </label>
+      <input type="hidden" id="selectedProjectType" name="projectType" value="" />
+      
+      <div class="flex flex-wrap gap-2.5" id="project-type-pills">
+        {projectTypes.map((type) => (
+          <button
+            type="button"
+            data-value={type}
+            class="pill-btn font-sans text-xs px-4 py-2.5 rounded-none border border-warm-800 bg-warm-900/60 text-warm-300 hover:text-warm-50 hover:border-bronze transition-all duration-200 focus:outline-none"
+          >
+            {type}
+          </button>
+        ))}
+      </div>
+      <span id="projectType-error" class="hidden text-xs text-amber-400">Please select a project category.</span>
+    </div>
+
+    <!-- 2. Interactive Budget Range Pills -->
+    <div class="space-y-3">
+      <label class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+        2. ESTIMATED INVESTMENT RANGE
+      </label>
+      <input type="hidden" id="selectedBudget" name="budget" value="" />
+      
+      <div class="flex flex-wrap gap-2.5" id="budget-pills">
+        {budgetRanges.map((range) => (
+          <button
+            type="button"
+            data-value={range}
+            class="pill-btn font-sans text-xs px-4 py-2.5 rounded-none border border-warm-800 bg-warm-900/60 text-warm-300 hover:text-warm-50 hover:border-bronze transition-all duration-200 focus:outline-none"
+          >
+            {range}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- 3. Personal Information Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+      <!-- Full Name -->
+      <div class="space-y-1.5">
+        <label for="name" class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+          FULL NAME <span class="text-bronze">*</span>
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="Jane Doe"
+          class="w-full bg-warm-900/80 border border-warm-800 px-4 py-3.5 text-sm text-warm-100 placeholder:text-warm-600 focus:outline-none focus:border-bronze focus:bg-warm-900 transition-colors"
+        />
+        <span id="name-error" class="hidden text-xs text-amber-400">Please enter your name.</span>
+      </div>
+
+      <!-- Email Address -->
+      <div class="space-y-1.5">
+        <label for="email" class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+          EMAIL ADDRESS <span class="text-bronze">*</span>
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="jane@example.com"
+          class="w-full bg-warm-900/80 border border-warm-800 px-4 py-3.5 text-sm text-warm-100 placeholder:text-warm-600 focus:outline-none focus:border-bronze focus:bg-warm-900 transition-colors"
+        />
+        <span id="email-error" class="hidden text-xs text-amber-400">Please enter a valid email address.</span>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="space-y-1.5">
+        <label for="phone" class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+          PHONE NUMBER
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="+1 (214) 555-0123"
+          class="w-full bg-warm-900/80 border border-warm-800 px-4 py-3.5 text-sm text-warm-100 placeholder:text-warm-600 focus:outline-none focus:border-bronze focus:bg-warm-900 transition-colors"
+        />
+      </div>
+
+      <!-- Target Timeline -->
+      <div class="space-y-1.5">
+        <label for="timeline" class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+          TARGET START TIMELINE
+        </label>
+        <select
+          id="timeline"
+          name="timeline"
+          class="w-full bg-warm-900/80 border border-warm-800 px-4 py-3.5 text-sm text-warm-100 focus:outline-none focus:border-bronze focus:bg-warm-900 transition-colors cursor-pointer"
+        >
+          <option value="Immediately (1-3 Months)">Immediately (1–3 Months)</option>
+          <option value="Next Quarter (3-6 Months)" selected>Next Quarter (3–6 Months)</option>
+          <option value="Planning Phase (6-12 Months)">Planning Phase (6–12 Months)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 4. Project Vision & Description -->
+    <div class="space-y-1.5">
+      <label for="message" class="block font-sans text-xs uppercase tracking-editorial text-warm-300 font-medium">
+        PROJECT VISION & DETAILS <span class="text-bronze">*</span>
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        required
+        placeholder="Share any specific design goals, architectural preferences, or key spaces to transform..."
+        class="w-full bg-warm-900/80 border border-warm-800 px-4 py-3.5 text-sm text-warm-100 placeholder:text-warm-600 focus:outline-none focus:border-bronze focus:bg-warm-900 transition-colors resize-y"
+      ></textarea>
+      <span id="message-error" class="hidden text-xs text-amber-400">Please provide a brief description of your project.</span>
+    </div>
+
+    <!-- Submit CTA Button -->
+    <div class="pt-4 flex items-center justify-between">
+      <button
+        type="submit"
+        class="w-full group bg-bronze text-warm-950 font-sans text-xs font-semibold uppercase tracking-widest px-10 py-4 hover:bg-bronze-light transition-all duration-300 rounded-none flex items-center justify-center space-x-3 shadow-lg"
+      >
+        <span>TRANSMIT INQUIRY</span>
+        <span class="transform group-hover:translate-x-1 transition-transform duration-200">→</span>
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Pill Selectors Setup
+    setupPills('#project-type-pills', '#selectedProjectType');
+    setupPills('#budget-pills', '#selectedBudget');
+
+    function setupPills(containerSelector: string, inputSelector: string) {
+      const container = document.querySelector(containerSelector);
+      const hiddenInput = document.querySelector(inputSelector) as HTMLInputElement | null;
+      if (!container) return;
+
+      const buttons = container.querySelectorAll('.pill-btn');
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          buttons.forEach((b) => {
+            b.classList.remove('bg-bronze', 'text-warm-950', 'border-bronze', 'font-medium');
+            b.classList.add('bg-warm-900/60', 'text-warm-300', 'border-warm-800');
+          });
+          btn.classList.add('bg-bronze', 'text-warm-950', 'border-bronze', 'font-medium');
+          btn.classList.remove('bg-warm-900/60', 'text-warm-300', 'border-warm-800');
+
+          if (hiddenInput) {
+            hiddenInput.value = btn.getAttribute('data-value') || '';
+          }
+        });
+      });
+    }
+
+    // Form Submission & Validation
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const successCard = document.getElementById('form-success-card');
+    const resetBtn = document.getElementById('reset-form-btn');
+
+    const nameInput = document.getElementById('name') as HTMLInputElement | null;
+    const emailInput = document.getElementById('email') as HTMLInputElement | null;
+    const projectTypeInput = document.getElementById('selectedProjectType') as HTMLInputElement | null;
+    const messageInput = document.getElementById('message') as HTMLTextAreaElement | null;
+
+    const nameError = document.getElementById('name-error');
+    const emailError = document.getElementById('email-error');
+    const projectTypeError = document.getElementById('projectType-error');
+    const messageError = document.getElementById('message-error');
+
+    function validateEmail(email: string) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      let isValid = true;
+
+      // Validate Name
+      if (!nameInput?.value.trim()) {
+        nameError?.classList.remove('hidden');
+        nameInput?.classList.add('border-amber-400');
+        isValid = false;
+      } else {
+        nameError?.classList.add('hidden');
+        nameInput?.classList.remove('border-amber-400');
+      }
+
+      // Validate Email
+      if (!emailInput?.value.trim() || !validateEmail(emailInput.value.trim())) {
+        emailError?.classList.remove('hidden');
+        emailInput?.classList.add('border-amber-400');
+        isValid = false;
+      } else {
+        emailError?.classList.add('hidden');
+        emailInput?.classList.remove('border-amber-400');
+      }
+
+      // Validate Project Type Selection
+      if (!projectTypeInput?.value) {
+        projectTypeError?.classList.remove('hidden');
+        isValid = false;
+      } else {
+        projectTypeError?.classList.add('hidden');
+      }
+
+      // Validate Message
+      if (!messageInput?.value.trim()) {
+        messageError?.classList.remove('hidden');
+        messageInput?.classList.add('border-amber-400');
+        isValid = false;
+      } else {
+        messageError?.classList.add('hidden');
+        messageInput?.classList.remove('border-amber-400');
+      }
+
+      if (isValid) {
+        form.classList.add('hidden');
+        successCard?.classList.remove('hidden');
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form?.reset();
+      // Reset pills
+      const buttons = document.querySelectorAll('.pill-btn');
+      buttons.forEach((b) => {
+        b.classList.remove('bg-bronze', 'text-warm-950', 'border-bronze', 'font-medium');
+        b.classList.add('bg-warm-900/60', 'text-warm-300', 'border-warm-800');
+      });
+      if (projectTypeInput) projectTypeInput.value = '';
+      
+      form?.classList.remove('hidden');
+      successCard?.classList.add('hidden');
+    });
+  });
+</script>

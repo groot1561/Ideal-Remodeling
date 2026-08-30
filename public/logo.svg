@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56" fill="none">
+  <!-- Title: Ideal (Bigger, font-size=34) in Cormorant Garamond italic -->
+  <text x="0" y="30" font-family="'Cormorant Garamond', Georgia, serif" font-size="34" font-weight="500" font-style="italic" fill="#A48259" letter-spacing="1">Ideal</text>
+  
+  <!-- Remodeling (Smaller, font-size=22) in Cormorant Garamond italic with spacing decreased by 3px more (x=88) -->
+  <text x="88" y="30" font-family="'Cormorant Garamond', Georgia, serif" font-size="22" font-weight="400" font-style="italic" fill="#FAF8F5" letter-spacing="1.5">Remodeling</text>
+  
+  <!-- Caption: INTERIORS & REMODELING -->
+  <text x="0" y="48" font-family="'Manrope', system-ui, sans-serif" font-size="8.5" font-weight="500" fill="#C4A27B" letter-spacing="3.5">INTERIORS &amp; REMODELING</text>
+</svg>

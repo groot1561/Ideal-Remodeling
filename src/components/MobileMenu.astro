@@ -1,0 +1,124 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import SocialIcons from './SocialIcons.astro';
+---
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 bg-warm-950/95 backdrop-blur-2xl z-40 flex flex-col justify-between px-8 py-24 pointer-events-none opacity-0 transition-all duration-300 md:hidden overflow-y-auto"
+  aria-hidden="true"
+>
+  <div class="flex flex-col space-y-8 mt-4">
+    <div class="border-b border-warm-800 pb-4 flex items-center justify-between">
+      <span class="text-xs uppercase tracking-widest text-bronze font-sans block font-medium">
+        STUDIO NAVIGATION
+      </span>
+      <span class="text-xs uppercase tracking-editorial text-warm-500 font-sans">
+        {siteConfig.location}
+      </span>
+    </div>
+
+    <nav class="flex flex-col space-y-6">
+      {
+        siteConfig.navLinks.map((link, idx) => (
+          <a
+            href={link.href}
+            class="mobile-nav-link font-serif text-4xl text-warm-100 hover:text-bronze transition-colors flex items-center justify-between group border-b border-warm-900/60 pb-3"
+          >
+            <span>{link.label}</span>
+            <span class="font-sans text-xs text-warm-500 tracking-editorial font-light">0{idx + 1}</span>
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="flex flex-col space-y-6 pt-8 border-t border-warm-800">
+    <div class="flex flex-col space-y-1 text-xs text-warm-400 font-sans">
+      <p class="font-medium text-warm-100 text-sm">{siteConfig.shortName}</p>
+      <p>{siteConfig.address.full}</p>
+      <p class="pt-1 text-bronze">{siteConfig.phone}</p>
+    </div>
+
+    <div class="flex items-center justify-between pt-2">
+      <SocialIcons className="w-5 h-5 text-warm-400" />
+      <a
+        href="#contact"
+        class="mobile-nav-link bg-bronze text-warm-950 font-sans text-xs font-semibold uppercase tracking-widest px-5 py-2.5 rounded-full"
+      >
+        INQUIRE NOW
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from 'gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const barTop = document.getElementById('bar-top');
+    const barMid = document.getElementById('bar-mid');
+    const barBot = document.getElementById('bar-bot');
+
+    let isOpen = false;
+
+    function openMenu() {
+      isOpen = true;
+      toggleBtn?.setAttribute('aria-expanded', 'true');
+      mobileMenu?.classList.remove('pointer-events-none');
+      mobileMenu?.setAttribute('aria-hidden', 'false');
+
+      // Animate hamburger to X
+      gsap.to(barTop, { rotate: 45, y: 5, duration: 0.3 });
+      gsap.to(barMid, { opacity: 0, duration: 0.2 });
+      gsap.to(barBot, { rotate: -45, y: -5, duration: 0.3 });
+
+      // Animate Menu Overlay & Items
+      gsap.to(mobileMenu, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+      gsap.fromTo(
+        mobileLinks,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.1 }
+      );
+    }
+
+    function closeMenu() {
+      isOpen = false;
+      toggleBtn?.setAttribute('aria-expanded', 'false');
+      mobileMenu?.classList.add('pointer-events-none');
+      mobileMenu?.setAttribute('aria-hidden', 'true');
+
+      // Reset hamburger
+      gsap.to(barTop, { rotate: 0, y: 0, duration: 0.3 });
+      gsap.to(barMid, { opacity: 1, duration: 0.2 });
+      gsap.to(barBot, { rotate: 0, y: 0, duration: 0.3 });
+
+      // Fade out Menu Overlay
+      gsap.to(mobileMenu, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+    }
+
+    toggleBtn?.addEventListener('click', () => {
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Close on Escape Key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeMenu();
+      }
+    });
+  });
+</script>

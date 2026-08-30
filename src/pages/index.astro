@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Approach from '../components/Approach.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Ideal Remodeling | Residential Interior Remodeling Dallas TX">
+  <!-- Fixed Header -->
+  <Header />
+
+  <main>
+    <!-- Section 01: Hero -->
+    <Hero />
+
+    <!-- Section 02: Services -->
+    <Services />
+
+    <!-- Section 03: Selected Work / Portfolio -->
+    <Portfolio />
+
+    <!-- Section 04: Our Approach -->
+    <Approach />
+
+    <!-- Section 05: Contact & Inquiries -->
+    <Contact />
+  </main>
+
+  <!-- Section 06: Footer -->
+  <Footer />
+</Layout>
+
+<script>
+  import { initAnimations } from '../scripts/animations';
+
+  // Initialize GSAP & ScrollTrigger Animations on DOM Ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initAnimations();
+    });
+  } else {
+    initAnimations();
+  }
+</script>
+
